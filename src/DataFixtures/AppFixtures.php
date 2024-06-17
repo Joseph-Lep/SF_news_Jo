@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\ApiToken;
 use Faker\Factory;
 use App\Entity\User;
 use DateTimeImmutable;
@@ -25,7 +26,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create('zh_TW');
+        $faker = Factory::create('en_EN');
 
         $categories = [];
 
@@ -63,6 +64,12 @@ class AppFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN']);
 
         $manager->persist($admin);
+
+        $token = new ApiToken();
+        $token
+            ->setToken('Token42');
+
+        $manager->persist($token);
 
         $manager->flush();
     }
